@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos actualités{% endblock %}
+
+{% block body %}
+<body>>
+    <div class="container">
+        <div class"row">
+            <h1 class="col-lg-12 text-uppercase text-center my-3">Nos actualités</h1>
+            <hr>
+        </div>
+            {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-success float-right" href="{{ path('article_new') }}">Create new</a>
+            {% endif %}
+        <div class="album py-5">
+            <div class="container">
+                <div class="row">
+                    {% for article in articles %}
+                    <div class=" col-12 col-md-4">
+                        <div class="card h-100 d-inline-block mb-4 shadow-sm">
+                        <!--Card Header-->
+                        <img src="{{ asset('img/') }}{{ article.featuredImage }}" alt="" class="card-img-top" alt="..."
+                        style="width:100; height:250px; object-fit:cover;">
+                            <div class="card-body">
+                                <h4 class"card-title">{{ article.titre }}</h4>
+                                <p class="min-vh-10 h-10 card-text">{{ article.accroche }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-success" href="{{ path('article_show', {'id': article.id}) }}">Lire la suite</a>
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-warning" href="{{ path('article_edit', {'id': article.id}) }}">Modifier</a>
+                                            {% endif %}
+                                        </div>
+                                </div>
+                            </div>
+              </div>
+            </div> 
+            {% endfor %}       
+          </div>  
+        </div>
+      </div>       
+</div>
+        </body>
+
+</div>
+{% endblock %}
